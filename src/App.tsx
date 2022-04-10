@@ -10,7 +10,7 @@ function App() {
       .then((res) => res.json())
       .then((result) => console.log(result));
   }, []);
-  return <div className='App'></div>;
+  return <div className='App'>This is react project kim ki tae</div>;
 }
 
 export default App;
