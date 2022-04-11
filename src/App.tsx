@@ -1,16 +1,25 @@
-import React, { useEffect } from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import React, { useEffect, useState } from 'react';
+import { client } from '../src/index';
+import { gql } from '@apollo/client';
+const App = () => {
+  const [user, setUser] = useState('');
   useEffect(() => {
-    fetch(
-      'https://raw.githubusercontent.com/techoi/raw-data-api/main/simple-api.json'
-    )
-      .then((res) => res.json())
-      .then((result) => console.log(result));
-  }, []);
-  return <div className='App'>This is react project kim ki tae</div>;
-}
+    client
+      .query({
+        query: gql`
+          query {
+            user(userId: "김기태") {
+              userId
+            }
+          }
+        `,
+      })
+      .then((result) => {
+        console.log(result);
+        setUser(result.data);
+      });
+  });
+  return <h1>{user.userId}</h1>;
+};
 
 export default App;

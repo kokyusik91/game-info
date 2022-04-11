@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App';
@@ -8,28 +8,14 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  useQuery,
   gql,
 } from '@apollo/client';
 
-const client = new ApolloClient({
-  uri: 'https://countries.trevorblades.com',
+export const client = new ApolloClient({
+  uri: 'http://3.38.179.199/graphql',
   cache: new InMemoryCache(),
   credentials: 'omit',
 });
-
-client
-  .query({
-    query: gql`
-      query {
-        continents {
-          code
-          name
-        }
-      }
-    `,
-  })
-  .then((result) => console.log(result));
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement!);
