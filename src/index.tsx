@@ -1,23 +1,23 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import { createRoot } from "react-dom/client";
+
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 
 import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
   gql,
-} from '@apollo/client';
+} from "@apollo/client";
 
 export const client = new ApolloClient({
-  uri: 'http://3.38.179.199/graphql',
+  uri: "http://3.38.179.199/graphql",
   cache: new InMemoryCache(),
-  credentials: 'omit',
+  credentials: "omit",
 });
 
-const rootElement = document.getElementById('root');
+const rootElement = document.getElementById("root");
 const root = createRoot(rootElement!);
 
 // const rootNode = document.getElementById('root');
