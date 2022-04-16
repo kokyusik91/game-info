@@ -13,15 +13,16 @@ const SignUp = () => {
   let [emailAuthNumber, setEmailAuthNumber] = useState(true);
 
   const [createUser] = useMutation(ADD_USER);
-  const [sendId, setId] = useState<string>("");
   const [sendPassword, setPassword] = useState<string>("");
   const [sendEmail, setEmail] = useState<string>("");
 
-  const inputPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangePasswordValue = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setPassword(e.target.value);
   };
 
-  const inputEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeEmailValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
@@ -49,7 +50,7 @@ const SignUp = () => {
         <div>회원가입</div>
         <span>이메일</span>
         <div>
-          <input onChange={inputEmail} placeholder="이메일" />
+          <input onChange={handleChangeEmailValue} placeholder="이메일" />
           <button onClick={sendAuthEmail}>이메일 인증</button>
           <div hidden={emailAuthNumber}>
             <input placeholder="인증번호" />
@@ -59,7 +60,7 @@ const SignUp = () => {
           <span>비밀번호</span>
         </div>
         <div>
-          <input onChange={inputPassword} placeholder="비밀번호" />
+          <input onChange={handleChangePasswordValue} placeholder="비밀번호" />
         </div>
         <button onClick={doRegist}>회원가입 하기</button>
       </form>
