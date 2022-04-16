@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ChangeEventHandler, useEffect, useState } from "react";
 import { gql, useMutation, useQuery } from "@apollo/client";
 const SignUp = () => {
   const ADD_USER = gql`
@@ -10,19 +10,19 @@ const SignUp = () => {
       }
     }
   `;
-  const [createUser] = useMutation(ADD_USER);
-  const [sendId, setId] = useState("");
-  const [sendPassword, setPassword] = useState("");
-  const [sendEmail, setEmail] = useState("");
-  const inputId = (e: any) => {
-    setId(e.target.value);
-  };
+  let [emailAuthNumber, setEmailAuthNumber] = useState(true);
 
-  const inputPassword = (e: any) => {
+  const [createUser] = useMutation(ADD_USER);
+  const [sendPassword, setPassword] = useState<string>("");
+  const [sendEmail, setEmail] = useState<string>("");
+
+  const handleChangePasswordValue = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setPassword(e.target.value);
   };
 
-  const inputEmail = (e: any) => {
+  const handleChangeEmailValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
@@ -36,22 +36,34 @@ const SignUp = () => {
       variables: { params },
     });
   };
+
+  const submitUserAccount = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("새로고침 막음");
+  };
+  const sendAuthEmail = () => {
+    setEmailAuthNumber(false);
+  };
   return (
     <div className="SignUp">
-      <br />
-      회원가입
-      <br />
-      <span>이메일</span>
-      <br />
-      <input onChange={inputEmail} placeholder="이메일" />
-      <br />
-      <br />
-      <span>비밀번호</span>
-      <br />
-      <input onChange={inputPassword} placeholder="비밀번호" />
-      <br />
-      <br />
-      <button onClick={doRegist}>회원가입 하기</button>
+      <form onSubmit={submitUserAccount}>
+        <div>회원가입</div>
+        <span>이메일</span>
+        <div>
+          <input onChange={handleChangeEmailValue} placeholder="이메일" />
+          <button onClick={sendAuthEmail}>이메일 인증</button>
+          <div hidden={emailAuthNumber}>
+            <input placeholder="인증번호" />
+          </div>
+        </div>
+        <div>
+          <span>비밀번호</span>
+        </div>
+        <div>
+          <input onChange={handleChangePasswordValue} placeholder="비밀번호" />
+        </div>
+        <button onClick={doRegist}>회원가입 하기</button>
+      </form>
     </div>
   );
 };
