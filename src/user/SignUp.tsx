@@ -10,6 +10,8 @@ const SignUp = () => {
       }
     }
   `;
+  let [emailAuthNumber, setEmailAuthNumber] = useState(true);
+
   const [createUser] = useMutation(ADD_USER);
   const [sendId, setId] = useState<string>("");
   const [sendPassword, setPassword] = useState<string>("");
@@ -36,7 +38,10 @@ const SignUp = () => {
 
   const submitUserAccount = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("submission prevented");
+    console.log("새로고침 막음");
+  };
+  const sendAuthEmail = () => {
+    setEmailAuthNumber(false);
   };
   return (
     <div className="SignUp">
@@ -45,6 +50,10 @@ const SignUp = () => {
         <span>이메일</span>
         <div>
           <input onChange={inputEmail} placeholder="이메일" />
+          <button onClick={sendAuthEmail}>이메일 인증</button>
+          <div hidden={emailAuthNumber}>
+            <input placeholder="인증번호" />
+          </div>
         </div>
         <div>
           <span>비밀번호</span>
