@@ -12,7 +12,8 @@ import {
 } from "@apollo/client";
 
 export const client = new ApolloClient({
-  uri: "http://3.38.179.199/graphql",
+  // uri: "http://3.38.179.199/graphql",
+  uri: "http://localhost:8080/graphql",
   cache: new InMemoryCache(),
   credentials: "omit",
 });
